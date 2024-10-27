@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Helmet } from "react-helmet";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
@@ -27,7 +28,7 @@ const AddCategory = () => {
         e.preventDefault();
         const newCategory = { categoryName, slug, description };
         // console.log(newCategory);
-        fetch('http://localhost:5000/category', {
+        fetch('https://bike-hub-server-five.vercel.app/category', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -43,6 +44,9 @@ const AddCategory = () => {
     };
     return (
         <div className="bg-gray-100 min-h-screen flex items-center justify-center">
+            <Helmet>
+                <title>BikeHub | Add Category</title>
+            </Helmet>
             <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-lg">
                 <h2 className="text-2xl font-semibold mb-6">Add New Category</h2>
 

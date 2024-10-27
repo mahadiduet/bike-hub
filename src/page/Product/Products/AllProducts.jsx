@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import ProductCard from "../../../component/share/ProductCard";
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet";
 
 const AllProducts = () => {
     const [products, setProducts] = useState([]);
@@ -11,7 +12,7 @@ const AllProducts = () => {
         const fetchProducts = async () => {
             try {
                 setIsLoading(true);
-                const response = await axios.get(`http://localhost:5000/products`);
+                const response = await axios.get(`https://bike-hub-server-five.vercel.app/products`);
                 setProducts(response.data);
             } catch (error) {
                 console.error("Error fetching categories:", error);
@@ -23,6 +24,9 @@ const AllProducts = () => {
     }, []);
     return (
         <div>
+            <Helmet>
+                <title>BikeHub | All Bike</title>
+            </Helmet>
             <h2 className="text-4xl font-bold text-gray-800 mb-2 text-center mt-10">All Bike</h2>
             <p className="text-lg text-gray-600 mb-8 text-center">Explore our wide range of bike collections.</p>
 
@@ -30,7 +34,7 @@ const AllProducts = () => {
                 {isLoading ? (
                     <h1>Loading...</h1>
                 ) : products && products.length > 0 ? (
-                    <div className="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-1 gap-5">
+                    <div className="grid lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-1 gap-5">
                         {products.map((product) => (
                             <ProductCard key={product._id} product={product} />
                         ))}

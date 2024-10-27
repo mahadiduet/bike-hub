@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 
 const EditProduct = () => {
@@ -15,14 +15,14 @@ const EditProduct = () => {
         brand: "",
         engineCapacity: "",
         modelYear: "",
-        rating:""
+        rating: ""
     });
 
     // Fetch product data for editing
     useEffect(() => {
         const fetchProductData = async () => {
             try {
-                const response = await fetch(`http://localhost:5000/product/${id}`);
+                const response = await fetch(`https://bike-hub-server-five.vercel.app/product/${id}`);
                 if (response.ok) {
                     const data = await response.json();
                     setProductData(data);
@@ -41,7 +41,7 @@ const EditProduct = () => {
     useEffect(() => {
         const fetchCategories = async () => {
             try {
-                const response = await fetch("http://localhost:5000/categories");
+                const response = await fetch("https://bike-hub-server-five.vercel.app/categories");
                 if (response.ok) {
                     const data = await response.json();
                     setCategories(data);
@@ -66,7 +66,7 @@ const EditProduct = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await fetch(`http://localhost:5000/product/${id}`, {
+            const response = await fetch(`https://bike-hub-server-five.vercel.app/product/${id}`, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json"
@@ -88,7 +88,12 @@ const EditProduct = () => {
     return (
         <div className="bg-gray-100 min-h-screen flex items-center justify-center">
             <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-3xl">
-                <h2 className="text-2xl font-semibold mb-6">Edit Product</h2>
+                <div className='flex justify-between items-center'>
+                    <h2 className="text-2xl font-semibold mb-6">{id ? "Edit Product" : "Add New User"}</h2>
+                    <div>
+                        <Link to='/dashboard/admin/products'> <button className='bg-blue-600 text-white font-semibold py-2 px-5 rounded-md hover:bg-blue-700 transition-colors'>Back</button></Link>
+                    </div>
+                </div>
                 <form onSubmit={handleSubmit}>
                     {/* Product Name */}
                     <div className="mb-4">

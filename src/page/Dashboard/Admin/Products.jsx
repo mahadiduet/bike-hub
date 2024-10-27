@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { Helmet } from "react-helmet";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 
@@ -12,7 +13,7 @@ const Products = () => {
     useEffect(() => {
         const fetchCategories = async () => {
             try {
-                const response = await axios.get('http://localhost:5000/products');
+                const response = await axios.get('https://bike-hub-server-five.vercel.app/products');
                 setProducts(response.data);
             } catch (error) {
                 console.error('Error fetching categories:', error);
@@ -34,7 +35,7 @@ const Products = () => {
     // Handle delete action
     const handleDelete = async (id) => {
         try {
-            await axios.delete(`http://localhost:5000/products/${id}`);
+            await axios.delete(`https://bike-hub-server-five.vercel.app/products/${id}`);
             setProducts(products.filter(product => product._id !== id));
             toast.success('Delete Category Successfull.');
         } catch (error) {
@@ -42,9 +43,22 @@ const Products = () => {
         }
     };
     return (
-        <div className="mt-10 p-10">
-            <h2 className="text-2xl font-bold mb-4">Categories</h2>
-            <div className="flex justify-end mb-4">
+        <div className="">
+            <Helmet>
+                <title>Dashboard | Products</title>
+            </Helmet>
+            <div className="p-8 mb-4 bg-gradient-to-r from-blue-500 via-indigo-500 to-purple-500 rounded-lg shadow-lg text-white">
+                <h2 className="text-3xl font-bold mb-4">Admin Dashboard: Products</h2>
+                <p className="text-lg mb-6">Admin! Access to product edit and delete!</p>
+
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-10">
+                    <div className="bg-white text-black rounded-lg p-6 shadow-md">
+                        <h3 className="text-xl font-semibold">Total Product</h3>
+                        <p className="text-3xl font-bold">{products.length}</p>
+                    </div>
+                </div>
+            </div>
+            <div className="flex justify-end px-10 mx-auto mb-4">
                 <input
                     type="text"
                     placeholder="Search categories..."
@@ -53,7 +67,7 @@ const Products = () => {
                     onChange={e => setSearch(e.target.value)}
                 />
             </div>
-            <table className="min-w-full bg-white border border-gray-200">
+            <table className="px-10 mx-auto bg-white border border-gray-200">
                 <thead>
                     <tr className="bg-gray-200">
                         <th className="py-2 px-4 border">SN#</th>

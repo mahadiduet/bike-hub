@@ -4,6 +4,7 @@ import axios from 'axios';
 import { FaStar, FaStarHalfAlt, FaRegStar } from 'react-icons/fa';
 import { AuthContext } from '../../../FirebaseProvider/FirebaseProvider';
 import { toast } from 'react-toastify';
+import { Helmet } from 'react-helmet';
 
 const ProductDetails = () => {
     const { id } = useParams();
@@ -19,7 +20,7 @@ const ProductDetails = () => {
 
     useEffect(() => {
         if (id) {
-            fetch(`http://localhost:5000/users/${user?.email}`)
+            fetch(`https://bike-hub-server-five.vercel.app/users/${user?.email}`)
                 .then(res => res.json())
                 .then(data => {
                     setDisplayName(data.displayName);
@@ -33,7 +34,7 @@ const ProductDetails = () => {
     useEffect(() => {
         const fetchProduct = async () => {
             try {
-                const response = await axios.get(`http://localhost:5000/product/${id}`);
+                const response = await axios.get(`https://bike-hub-server-five.vercel.app/product/${id}`);
                 setProduct(response.data);
             } catch (error) {
                 console.error("Error fetching product details:", error);
@@ -99,7 +100,7 @@ const ProductDetails = () => {
         };
         console.log('Data:', formDetails, purchaseData);
         try {
-            await axios.post("http://localhost:5000/order", { purchaseData });
+            await axios.post("https://bike-hub-server-five.vercel.app/order", { purchaseData });
             toast.success("Purchase successful!");
             setIsModalOpen(false);
         } catch (error) {
@@ -114,6 +115,10 @@ const ProductDetails = () => {
 
     return (
         <div className="max-w-4xl mx-auto p-6 bg-white rounded-lg shadow-lg">
+            
+            <Helmet>
+                <title>BikeHub | {product.productName}</title>
+            </Helmet>
             {/* Product Image and Info */}
             <div className="flex flex-col lg:flex-row lg:space-x-8">
                 <div className="w-full lg:w-1/2 flex-shrink-0">

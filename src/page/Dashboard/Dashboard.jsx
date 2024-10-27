@@ -1,13 +1,14 @@
 import { useState } from "react";
 import Leftnavbar from "../../component/dashboard/Leftnavbar";
 import { Outlet } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
 
 const Dashboard = () => {
     const [open, isOpen] = useState(false);
     return (
         <div>
             <div className="">
-                
+
                 <div
                     className="z-10 w-full p-3 block fixed left-0 top-0 lg:hidden bg-[#18181F] border-b border-blue-950"
                     onClick={() => isOpen(!open)}
@@ -54,6 +55,7 @@ const Dashboard = () => {
 
                 <div className={`ml-0 lg:ml-64`}>
                     <Outlet></Outlet>
+                    <ToastContainer />
                 </div>
             </div>
         </div>

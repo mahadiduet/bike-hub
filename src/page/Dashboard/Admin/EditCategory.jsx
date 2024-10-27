@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { Helmet } from 'react-helmet';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
@@ -34,7 +35,7 @@ const EditCategory = () => {
         const updatedCategory = { categoryName, slug, description, imageUrl };
         console.log(updatedCategory);
         try {
-            const response = await fetch(`http://localhost:5000/category/${id}`, {
+            const response = await fetch(`https://bike-hub-server-five.vercel.app/category/${id}`, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
@@ -56,7 +57,7 @@ const EditCategory = () => {
 
     useEffect(() => {
         if (id) {
-            fetch(`http://localhost:5000/category/${id}`)
+            fetch(`https://bike-hub-server-five.vercel.app/category/${id}`)
                 .then(res => res.json())
                 .then(data => {
                     console.log(data);
@@ -69,7 +70,9 @@ const EditCategory = () => {
     }, [id]);
     return (
         <div className="bg-gray-100 min-h-screen flex items-center justify-center">
-
+            <Helmet>
+                <title>Dashboard | Edit Category</title>
+            </Helmet>
             <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-lg">
 
                 <div className='flex justify-between items-center'>

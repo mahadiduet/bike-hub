@@ -9,7 +9,7 @@ const Leftnavbar = () => {
 
     useEffect(() => {
         if (user?.email) {
-            fetch(`http://localhost:5000/users/${user.email}`)
+            fetch(`https://bike-hub-server-five.vercel.app/users/${user.email}`)
                 .then(res => res.json())
                 .then(data => {
                     console.log(data);
@@ -21,7 +21,7 @@ const Leftnavbar = () => {
     return (
         <div className="h-screen w-64 bg-gray-800 text-white">
             <div className="p-6 text-2xl font-semibold border-b border-gray-600">
-                <Link to='/dashboard'>Admin Panel</Link>
+                <Link to='/dashboard'>Dashboard</Link>
             </div>
 
             {role === 'admin' ? (
@@ -58,7 +58,7 @@ const Leftnavbar = () => {
                     <ul>
                         <li className="hover:bg-gray-700 p-4 cursor-pointer flex items-center">
                             <FaBox className="mr-4" />
-                            <NavLink to='/profile'>My Profile</NavLink>
+                            <NavLink to='/dashboard'>My Profile</NavLink>
                         </li>
                         <li className="hover:bg-gray-700 p-4 cursor-pointer flex items-center">
                             <FaListAlt className="mr-4" />

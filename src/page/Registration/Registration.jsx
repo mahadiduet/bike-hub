@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { AuthContext } from "../../FirebaseProvider/FirebaseProvider";
 import { toast } from "react-toastify";
 import { useNavigate, Link } from "react-router-dom";  // Import Link
+import { Helmet } from "react-helmet";
 
 const Registration = () => {
     const { createUser, updateUser } = useContext(AuthContext);
@@ -26,10 +27,10 @@ const Registration = () => {
                 const createdAt = result.user.metadata.createdAt;
                 const lastSignInTime = result.user.metadata.lastSignInTime;
                 const role = 'user';
-                const user = {displayName, email, phone, address, role, createdAt, lastSignInTime };
+                const user = { displayName, email, phone, address, role, createdAt, lastSignInTime };
 
                 // Data pass to MongoDB by API
-                fetch('http://localhost:5000/user', {
+                fetch('https://bike-hub-server-five.vercel.app/user', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -52,6 +53,9 @@ const Registration = () => {
 
     return (
         <div className="min-h-screen flex items-center justify-center bg-gray-100">
+            <Helmet>
+                <title>BikeHub | Sign Up</title>
+            </Helmet>
             <div className="bg-white shadow-md rounded-lg p-8 max-w-md w-full">
                 <h2 className="text-2xl font-bold text-center mb-6">Register</h2>
 

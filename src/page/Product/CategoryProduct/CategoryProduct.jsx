@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useLocation, Link, useParams } from "react-router-dom";
 import ProductCard from "../../../component/share/ProductCard";
+import { Helmet } from "react-helmet";
 
 const CategoryProduct = () => {
     const location = useLocation();
@@ -14,7 +15,7 @@ const CategoryProduct = () => {
         const fetchProducts = async () => {
             try {
                 setIsLoading(true); // Start loading
-                const response = await axios.get(`http://localhost:5000/products/category?categoryName=${slug}`);
+                const response = await axios.get(`https://bike-hub-server-five.vercel.app/products/category?categoryName=${slug}`);
                 setProducts(response.data);
             } catch (error) {
                 console.error("Error fetching categories:", error);
@@ -34,6 +35,9 @@ const CategoryProduct = () => {
 
     return (
         <div>
+            <Helmet>
+                <title>BikeHub | {kebabToTitleCase(slug)}</title>
+            </Helmet>
             <h2 className="text-4xl font-bold text-gray-800 mb-2 text-center mt-10">Category: {kebabToTitleCase(slug)}</h2>
             <p className="text-lg text-gray-600 mb-8 text-center">Explore our wide range of bike collections.</p>
 

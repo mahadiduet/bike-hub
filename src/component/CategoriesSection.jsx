@@ -8,7 +8,7 @@ const CategoriesSection = () => {
     useEffect(() => {
         const fetchCategories = async () => {
             try {
-                const response = await axios.get('http://localhost:5000/categories/home');
+                const response = await axios.get('https://bike-hub-server-five.vercel.app/categories/home');
                 setCategories(response.data);
             } catch (error) {
                 console.error('Error fetching categories:', error);

@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Helmet } from "react-helmet";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
@@ -20,7 +21,7 @@ const AddProduct = () => {
     useEffect(() => {
         const fetchCategories = async () => {
             try {
-                const response = await fetch("http://localhost:5000/categories");
+                const response = await fetch("https://bike-hub-server-five.vercel.app/categories");
                 const data = await response.json();
                 setCategories(data);
             } catch (error) {
@@ -84,7 +85,7 @@ const AddProduct = () => {
 
         // Submit the product data to your API
         try {
-            const response = await fetch('http://localhost:5000/product', {
+            const response = await fetch('https://bike-hub-server-five.vercel.app/product', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -106,6 +107,9 @@ const AddProduct = () => {
 
     return (
         <div className="bg-gray-100 min-h-screen flex items-center justify-center">
+            <Helmet>
+                <title>Dashboard | Add Product</title>
+            </Helmet>
             <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-3xl">
                 <h2 className="text-2xl font-semibold mb-6">Upload Motorcycle Product</h2>
 

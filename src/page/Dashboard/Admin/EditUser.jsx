@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 
 const EditUser = () => {
@@ -15,7 +15,7 @@ const EditUser = () => {
         const updatedUser = { displayName, email, phone, address };
         console.log(updatedUser);
         try {
-            const response = await fetch(`http://localhost:5000/users/${id}`, {
+            const response = await fetch(`https://bike-hub-server-five.vercel.app/users/${id}`, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
@@ -37,7 +37,7 @@ const EditUser = () => {
 
     useEffect(() => {
         if (id) {
-            fetch(`http://localhost:5000/users/${id}`)
+            fetch(`https://bike-hub-server-five.vercel.app/users/${id}`)
                 .then(res => res.json())
                 .then(data => {
                     setDisplayName(data.displayName);
@@ -50,8 +50,12 @@ const EditUser = () => {
     return (
         <div className="bg-gray-100 min-h-screen flex items-center justify-center">
             <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-lg">
-                <h2 className="text-2xl font-semibold mb-6">{id ? "Edit Category" : "Add New Category"}</h2>
-
+                <div className='flex justify-between items-center'>
+                    <h2 className="text-2xl font-semibold mb-6">{id ? "Edit User" : "Add New User"}</h2>
+                    <div>
+                        <Link to='/dashboard/admin/users'> <button className='bg-blue-600 text-white font-semibold py-2 px-5 rounded-md hover:bg-blue-700 transition-colors'>Back</button></Link>
+                    </div>
+                </div>
                 <form onSubmit={handleSubmit}>
                     {/* Category Name */}
                     <div className="mb-4">

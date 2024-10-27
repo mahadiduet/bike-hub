@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { Helmet } from "react-helmet";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 
@@ -7,12 +8,12 @@ const Categories = () => {
   const [categories, setCategories] = useState([]);
   const [search, setSearch] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
-  const [categoriesPerPage] = useState(2);
+  const [categoriesPerPage] = useState(10);
 
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/categories');
+        const response = await axios.get('https://bike-hub-server-five.vercel.app/categories');
         setCategories(response.data);
       } catch (error) {
         console.error('Error fetching categories:', error);
@@ -35,7 +36,7 @@ const Categories = () => {
   const handleDelete = async (id) => {
     // console.log(id);
     try {
-      await axios.delete(`http://localhost:5000/category/${id}`);
+      await axios.delete(`https://bike-hub-server-five.vercel.app/category/${id}`);
       setCategories(categories.filter(category => category._id !== id));
       toast.success('Delete Category Successfull.');
     } catch (error) {
@@ -44,9 +45,25 @@ const Categories = () => {
   };
 
   return (
-    <div className="mt-10 p-10">
-      <h2 className="text-2xl font-bold mb-4">Categories</h2>
-      <div className="flex justify-end mb-4">
+    <div className="">
+      <Helmet>
+        <title>Dashboard | Categories</title>
+      </Helmet>
+      <div>
+        <div className="p-8 bg-gradient-to-r from-blue-500 via-indigo-500 to-purple-500 rounded-lg shadow-lg text-white">
+          <h2 className="text-3xl font-bold">Admin Dashboard: categories</h2>
+          <p className="text-lg mb-6">WAdmin! Access to category edit and delete!</p>
+
+          {/* Stats Section */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="bg-white text-black rounded-lg p-6 shadow-md">
+              <h3 className="text-xl font-semibold">Total Categories</h3>
+              <p className="text-3xl font-bold">{categories.length}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="flex justify-end p-10">
         <input
           type="text"
           placeholder="Search categories..."
@@ -55,7 +72,7 @@ const Categories = () => {
           onChange={e => setSearch(e.target.value)}
         />
       </div>
-      <table className="min-w-full bg-white border border-gray-200">
+      <table className="px-10  w-11/12 mx-auto bg-white border border-gray-200">
         <thead>
           <tr className="bg-gray-200">
             <th className="py-2 px-4 border">SN#</th>

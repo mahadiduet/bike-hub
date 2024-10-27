@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { Helmet } from "react-helmet";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 
@@ -7,7 +8,7 @@ const Users = () => {
     const [users, setUsers] = useState([]);
     const [search, setSearch] = useState('');
     const [currentPage, setCurrentPage] = useState(1);
-    const [usersPerPage] = useState(2);
+    const [usersPerPage] = useState(10);
 
     const [totalUsers, setTotalUsers] = useState(0);
     const [adminUsers, setAdminUsers] = useState(0);
@@ -15,7 +16,7 @@ const Users = () => {
 
     const fetchUsers = async () => {
         try {
-            const response = await axios.get('http://localhost:5000/users');
+            const response = await axios.get('https://bike-hub-server-five.vercel.app/users');
             setUsers(response.data);
             const userData = response.data;
             setTotalUsers(userData.length);
@@ -48,7 +49,7 @@ const Users = () => {
     const handleRole = async (id, currentRole) => {
         try {
             const updatedRole = currentRole === 'user' ? 'admin' : 'user';
-            await axios.patch(`http://localhost:5000/users/${id}`, { role: updatedRole });
+            await axios.patch(`https://bike-hub-server-five.vercel.app/users/${id}`, { role: updatedRole });
             setUsers(users.map(user =>
                 user._id === id ? { ...user, role: updatedRole } : user
             ));
@@ -61,10 +62,13 @@ const Users = () => {
     };
     return (
         <div className="">
+            <Helmet>
+                <title>Dashboard | User</title>
+            </Helmet>
             <div>
                 <div className="p-8 bg-gradient-to-r from-blue-500 via-indigo-500 to-purple-500 rounded-lg shadow-lg text-white">
                     <h2 className="text-3xl font-bold">Admin Dashboard: User</h2>
-                    <p className="text-lg mb-6">Welcome back, Admin! Here’s an overview of today’s activity:</p>
+                    <p className="text-lg mb-6">Admin! Access to user edit and make admin and remove admin!</p>
 
                     {/* Stats Section */}
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">

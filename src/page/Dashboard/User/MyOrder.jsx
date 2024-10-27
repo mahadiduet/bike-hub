@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../../FirebaseProvider/FirebaseProvider";
+import { Helmet } from "react-helmet";
 const MyOrder = () => {
     const { user } = useContext(AuthContext);
     const email = user?.email;
@@ -8,14 +9,14 @@ const MyOrder = () => {
     const [order, setOrder] = useState([]);
     const [search, setSearch] = useState('');
     const [currentPage, setCurrentPage] = useState(1);
-    const [orderPerPage] = useState(2);
+    const [orderPerPage] = useState(10);
 
     useEffect(() => {
         const fetchOrder = async () => {
             if (email) {
                 console.log('Fetching orders for email:', email); // Debugging line
                 try {
-                    const response = await axios.get('http://localhost:5000/order', {
+                    const response = await axios.get('https://bike-hub-server-five.vercel.app/order', {
                         params: { email }
                     });
                     console.log('API response:', response.data); // Log API response
@@ -43,6 +44,9 @@ const MyOrder = () => {
 
     return (
         <div className="mt-10 p-10 w-full">
+            <Helmet>
+                <title>Dashboard | My Order</title>
+            </Helmet>
             <h2 className="text-2xl font-bold mb-4">Order</h2>
             <div className="flex justify-end mb-4">
                 <input

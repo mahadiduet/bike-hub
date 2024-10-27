@@ -21,6 +21,7 @@ import ProductDetails from "../page/Product/ProductDetails/ProductDetails";
 import Order from "../page/Dashboard/Admin/Order";
 import MyOrder from "../page/Dashboard/User/MyOrder";
 import PrivateRoute from "../PrivateRoute/PrivateRoute";
+import AdminRoute from "../PrivateRoute/AdminRoute";
 
 
 export const router = createBrowserRouter([
@@ -74,7 +75,7 @@ export const router = createBrowserRouter([
     },
     {
         path: '/dashboard/admin',
-        element: <PrivateRoute><Dashboard /></PrivateRoute>,
+        element:<AdminRoute><PrivateRoute><Dashboard /></PrivateRoute></AdminRoute>,
         children: [
             {
                 path: '/dashboard/admin',

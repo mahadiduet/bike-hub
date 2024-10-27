@@ -13,6 +13,7 @@ import "./user.css";
 import { AuthContext } from "../../../FirebaseProvider/FirebaseProvider";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { Helmet } from "react-helmet";
 
 const UserDashboard = () => {
     const { user, updateUser, loading, logout } = useContext(AuthContext);
@@ -22,7 +23,7 @@ const UserDashboard = () => {
 
     const fetchUserData = async () => {
         try {
-            const response = await axios.get(`http://localhost:5000/users/${user?.email}`);
+            const response = await axios.get(`https://bike-hub-server-five.vercel.app/users/${user?.email}`);
             setUserData(response.data);
         } catch (error) {
             console.error("Error fetching user data:", error);
@@ -50,7 +51,7 @@ const UserDashboard = () => {
         try {
             await updateUser(updatedData.displayName, updatedData.photoURL);
             const response = await axios.put(
-                `http://localhost:5000/users/${user?.email}`,  // Using email as identifier
+                `https://bike-hub-server-five.vercel.app/users/${user?.email}`,  // Using email as identifier
                 updatedData
             );
             if (response.status === 200) {
@@ -83,6 +84,9 @@ const UserDashboard = () => {
 
     return (
         <div className="flex bg-gradient-to-r from-[#142a4c] via-[#18171E] to-[#1b1f24] justify-center items-center min-h-screen">
+            <Helmet>
+                <title>Dashboard | User</title>
+            </Helmet>
             <div className="relative w-full shadow-lg rounded-lg overflow-hidden">
                 <img
                     src="https://static.vecteezy.com/system/resources/previews/037/169/619/non_2x/ai-generated-recording-a-podcast-in-the-office-free-photo.jpg"

@@ -2,6 +2,7 @@ import { useContext, useState } from "react";
 import { AuthContext } from "../../FirebaseProvider/FirebaseProvider";
 import { useLocation, useNavigate, Link } from "react-router-dom";  // Import Link
 import { toast } from "react-toastify";
+import { Helmet } from "react-helmet";
 
 const Login = () => {
     const { loginUser } = useContext(AuthContext);
@@ -10,7 +11,7 @@ const Login = () => {
 
     const navigate = useNavigate();
     const location = useLocation();
-    const existLocation = location?.state || '/dashboard';
+    const existLocation = location?.state || '/dashboard/admin';
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -28,6 +29,9 @@ const Login = () => {
 
     return (
         <div className="min-h-screen flex items-center justify-center bg-gray-100">
+            <Helmet>
+                <title>BikeHub | Sign In</title>
+            </Helmet>
             <div className="w-full max-w-md p-8 space-y-6 bg-white shadow-lg rounded-lg">
                 <h2 className="text-2xl font-bold text-center text-gray-700">Login to Your Account</h2>
                 <form onSubmit={handleSubmit} className="space-y-6">
